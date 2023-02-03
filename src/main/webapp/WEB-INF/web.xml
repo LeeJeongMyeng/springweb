@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>springweb</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 
+  1. front contrller위한 선언
+  	
+  *url패턴 확인
+  	-web.xml
+  		1. 마지막에 *.do로 끝나면 dispatcher서블릿 호출
+  		2. dispatcher : front-controller인 스프링의 DispatcherServlet을 호출
+  		
+  	- DispatcherServlet 객체는 컨테이너 설정을 포함하여 가지고 있는데,
+  			이 컨테이너 설정 위치가  default WEB-INF하위에 dispatcher-servlet.xml로
+  		    XXXX-servlet.xml에서 XXXX는 <servlet-name>dispatcher</servlet-name>에 의해 설정되서
+  		    컨테이너를 호출하고,
+  		4. 컨테이너에 선언되어있는 객체들을 메모리에 로딩한다.
+  			<bean class="springweb.a01_start.A01_Controller"/>
+  		
+  	-Controller
+  		8. 컨테이너에 선언된 컨트롤러 중에../start.do 패턴으로 선언된 메서드를 찾아간다.
+  		9. @RequestMapping("/start.do")로 선언된 메서드에서
+  		10. 요청값은 메서드의 매개변수로
+  		11. 모델데이터는 Model d로 해서 처리가 되고
+  		12. 기능 메서드의 return "WEB-INF\views\a01_start\a01_start.jsp"에 의해 view단이 호출되어
+  		13. 해당 뷰단은 모델 데이터와 함께 출력이 된다.
+  
+  -->
+ 
+  <servlet>
+  	<servlet-name>dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  	<servlet-mapping>
+  		<servlet-name>dispatcher</servlet-name>
+  		<url-pattern>*.do</url-pattern>
+  	</servlet-mapping>
+  
+ 	
+ 	<!-- 
+ 		요청값에 대한 한글 encoding 위한 filtering선언
+ 	 -->
+  <filter>
+  	<filter-name>encodingFilter</filter-name>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>utf-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>encodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>

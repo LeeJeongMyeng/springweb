@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center;}
+	#expwrap{
+		display:flex;
+	}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+	
+	
+	/*
+	#데이터 처리 기능 메서드의 callback함숯러ㅣ
+	1. text(), html(), val(),attr(),css()
+		return 될 데이터는 실제 저장할 데이터를 말한다.
+		속성 설정에도 처리할 수 있다.
+		$("다중선택자").css("background,function(idx){
+			//다른 기능적 처리 프로세스 수행
+			//$(this)배열개겣 가운데 단위데이터 처리
+			return " 각 내용별로 처리할데이터(배경색상)"
+		})
+		
+	
+	2. text(function(idx){
+		//다중의 요소객체의 경우 index값을 매개변수로 받고
+		//리턴값을 해당 데이터에 대한 처리를 할 수 있따.
+		return "처리할 데이터"
+	})
+	
+	*/
+	
+$(document).ready(function(){
+		$("#show td").text(function(idx,txt){
+			console.log(idx+":"+txt)
+			return idx+" hello"
+		})
+		
+		
+		$(".exp").text(function(idx,txt){
+			$(this).css("background",txt)
+			return idx
+		})
+		
+		var colors=['red','orange','yellow','green','blue','indigo','purple']
+		
+		$(".exp2").text(function(idx){
+			$(this).css("background",colors[idx])
+			return idx
+		})
+		var aligns = ["left","center","right"]
+	$(".in01").val(function(idx){
+	   $(this).css("text-align",aligns[idx%3])
+	   return colors[idx];
+	})
+	});
+	
+	
+	
+
+</script>
+</head>
+<body>
+
+	  <h2>콜백함수</h2>
+	  
+	  <table id="show" width="300pt" height="300pt" border>
+	  	<tr><td>기존데이터1</td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td>기존데이터2</td><td></td></tr>
+	  </table>
+	  
+	  <div id="expwrap">
+	  <h3 class="exp">red</h3>
+	  <h3 class="exp">orange</h3>
+	  <h3 class="exp">yellow</h3>
+	  <h3 class="exp">green</h3>
+	  <h3 class="exp">blue</h3>
+	  <h3 class="exp">indigo</h3>
+	  <h3 class="exp">purple</h3>
+	  
+	  <h3 class="exp2"></h3>
+	  <h3 class="exp2"></h3>
+	  <h3 class="exp2"></h3>
+	  <h3 class="exp2"></h3>
+	  <h3 class="exp2"></h3>
+	  <h3 class="exp2"></h3>
+	  <h3 class="exp2"></h3>
+	 </div>
+	  
+	  <input type="text" class="in01"/>
+	  <input type="text" class="in01"/>
+	  <input type="text" class="in01"/>
+	  <input type="text" class="in01"/>
+	  <input type="text" class="in01"/>
+	  <input type="text" class="in01"/>
+	  <input type="text" class="in01"/>
+
+</body>
+<script>
+</script>
+</html>

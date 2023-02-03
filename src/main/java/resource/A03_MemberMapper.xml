@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+
+<mapper namespace="springweb.a05_mvc.a03_dao.A03_MemberDao">
+	<select id="getAuthCom" resultType="string">
+		SELECT DISTINCT auth
+		FROM member111
+	</select>	
+	<select id="getMemberList" parameterType="member111"
+		 resultType="member111">
+		select * from member111
+		where mid like '%'||#{mid}||'%'
+		and name like '%'||#{name}||'%'
+		<if test="auth!=''">
+		and auth = #{auth}
+		</if>
+	</select>		 
+	<select id="getMember" parameterType="string" 
+		resultType="member111">
+		select * from member111
+		where mid = #{mid}	
+	</select>
+	<update id="uptMember"  parameterType="member111">
+		update member111
+			set name=#{name},
+				pass=#{pass},
+				point=#{point},
+				auth=#{auth}
+			where mid = #{mid}
+	</update>		
+	<delete id="delMember" parameterType="string">
+		delete member111
+		where mid = #{mid}
+	</delete>		
+</mapper>		
+		

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<!--	// springweb.a05_mvc.a03_dao.A01_EmpDao
+		// public List<Emp> getEmpList(Emp sch); 
+		인터페이스를 상속받은 실제 Dao객체를 위 규칙에 생성하는 xml파일..
+		
+		a01_diexp.mybatis.dao.A01_EmpDao.getEmpList
+		-->
+<mapper namespace="a01_diexp.homework.a06_0126.A02_0126ExpDao">
+		<resultMap type="membervo" id="member">
+			<result column="user" property="id"/>
+			<result column="password99" property="pass"/>
+			<result column="auth" property="authority"/>
+		</resultMap>
+		<select id="getmember" resultMap="member">
+			select id user99, pass password99,authority auth  from member
+		</select>
+		
+		<select id="getDept" resultType="dept" parameterType="int">
+			select * from dept where deptno=#{deptno}
+		</select>
+		
+		<insert id="insertDept" parameterType="dept">
+			insert into dept100 values(#{deptno},#{dname},#{loc})
+		</insert>
+		
+		<delete id="deleteMember" parameterType="String">
+			delete member100 where id=#{id}
+		</delete>
+		
+		<resultMap type="buyinfo111" id="buyResult">
+			<association property="product111" javaType="product111">
+				<result column="pname" property="name" />
+				<result column="price" property="price" />
+				<result column="bcnt" property="cnt"/>
+			</association>
+			<association property="member111" javaType="member111">
+				<result column="mid" property="mid" />
+				<result column="pass" property="pass" />
+				<result column="name" property="name" />
+				<result column="auth" property="auth" />
+			</association>
+		</resultMap>
+		
+		<select id="getBuyResult" resultMap="buyResult">
+			SELECT p.name pname,price,m.mid,m.pass,m.name,auth,b.bcnt 
+			FROM product111 p, member111 m, buyinfo111 b
+			WHERE p.pid = b.pid
+			AND m.mid=b.mid
+		</select>
+</mapper>	
+
+
+		

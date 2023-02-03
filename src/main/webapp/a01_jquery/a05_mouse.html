@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+var cnt=0;
+	$(document).ready(function(){
+		$("h2").text("안녕하세요")
+		
+		
+		$("h3").mouseenter(function(){
+			$(this).css("background",$(this).text())
+		})
+		$("h3").mouseleave(function(){
+			$(this).css("background","")
+		})
+		
+		$("h3").mouseup(function(){
+			alert($(this).text());
+			cnt++
+			$("h4").text(cnt)
+		})
+		
+		/*
+		$("대상객체").hover(function(){
+			// 마우스를 오버(enter시) 처리될 내용
+		}),function(){
+			//마우스 아웃(leave)시 처리될 내용
+		}
+		*/
+		
+	});
+</script>
+</head>
+<body>
+
+	  <h3>red</h3>
+	  <h3>orange</h3>
+	  <h3>yellow</h3>
+	  <h3>green</h3>
+	  <h3>blue</h3>
+	  <h3>indigo</h3>
+	  <h3>purple</h3>
+	  <h4></h4>
+
+</body>
+<script>
+</script>
+</html>

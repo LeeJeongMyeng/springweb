@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("h2").text("안녕하세요")
+		$('#togBtn').on({
+			click:function(){
+				$('#info').toggle('fast');
+			
+				
+			}
+		})
+	});
+</script>
+</head>
+<body>
+
+	  <button type="button" id="togBtn">정보보기</button>
+	  <div id="infowrap" style="width:500px; height:500px">
+	  	<p id="info"> 유해한 이물질, 세균, 죽었거나 죽어가는 세포를 섭취하여 신체를 보호하는 세포이다.<br> 식세포는 감염에 대항하며 이후의 면역 과정에 필수적이다.<br>
+	  	 식세포는 동물계 전체에서 중요하며 특히 척추동물에서 고도로 발달되어 왔다.<br>
+	  	  사람의 혈액 1리터에는 약 60억 개의 식세포가 포함되어 있다.<br>
+	  	  식세포는 1882년에 엘리 메치니코프가 불가사리 유생을 연구하는 중에 발견되었다.<br>
+	  	   식세포는 많은 종에 존재한다. 일부 아메바는 대식세포처럼 행동하는데 이는 식세포가 생명의 진화 과정의 초기에 출현했음을 시사한다.<br>
+
+사람이나 다른 동물의 식세포는 '전문적'인 식세포와 '비전문적'인 식세포로 나뉘는데, 이 분류의 기준은 식세포가 얼마나 효율적으로 식작용을 하는지이다. <br>
+전문 식세포는 호중구, 단핵구, 대식세포, 비만세포, 수지상세포</p>
+	  </div>
+	  
+
+</body>
+<script>
+</script>
+</html>

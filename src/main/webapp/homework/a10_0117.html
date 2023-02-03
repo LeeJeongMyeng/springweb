@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		/*
+		2023-01-17
+	[1단계:개념] 1. 출력을 처리하는 기능메서드를 기술하고, 이 기능메서드에 callback함수가 처리될 때 어떤 효과가 나는지 기술하세요
+					$("객체").text(function(){
+						return ??
+					})
+					지정한 객체에 return 값을 text로 삽입
+					*/
+					
+	//[1단계:확인] 2. callback함수를 이용하여 5*5 테이블에 1~25번호를 붙이고, 짝/홀별로 배경색상을 다르게 처리하세요
+		
+		$('#tb02 td').text(function(idx){
+			if(idx%2==0){
+				$(this).css("background","skyblue")
+			}
+				return idx;
+			})	
+	//[1단계:개념] 3. 부모/조상객체를 선택하는 기능메서드를 기술하세요
+				/*
+				$("요소객체").parent() : 바로상위부모
+ 				$("요소객체").parents("선택할 조상객체") : 해당 요소객체를 포함하고있는 모든 부모
+ 					상위 조상객체들중에 지정이 가능하다
+ 				$("요소객체").parentsUtil("지정") : 모든 부모개겣중 특정한 객체 
+ 				*/
+	//[1단계:확인] 4. <p><h2>,<p><h2>,<p><h2> 구조로 된 상황에서 h2를 클릭시,
+	//			    상위 p태그이 border의 테두리가 파랑색으로 처리되게 하세요  
+		$('.exp4').click(function(){
+			$(this).prev().css("border","1px solid")
+		})	
+					
+	//[1단계:개념] 5. 자식/후손 객체를 선택하는 기능메서드를 기술하세요
+			/* $하위 자식 객체
+ 				$("요소객체").children()
+ 				$("요소객체").find("하위 중에 찾을 객체") 
+ 				*/
+	//[1단계:개념] 6. 형제 객체를 선택하는 기능메서드를 기술하세요
+				/*
+				$("요소객체").siblings():요소객체와 같은 부모객체를 둔 모든 형제객체를 선택
+ 				$("요소객체").next():요소객체와 같은 형제객체중 바로 옆 형제
+ 				$("요소객체").nextAll():요소객체와 같은 형제객체중 바로 옆 모든형제
+ 				$("요소객체").nextUntil():요소객체와 같은 형제객체중 지정한 객체까지 모두 선택
+ 				$("요소객체").prve():형제객체중 바로 이전객체
+ 				$("요소객체").prveAll():형제객체중 바로 이전객체들
+ 				$("요소객체").prveUntil():형제객체중 선택한 이전객체까지 이전객체들 
+ 				*/
+	//[1단계:활용] 7. 입력시, next()를 활용해서 유효성(글자수 8~16)에 대한 내용을 표시하게 하세요.
+				$('#exp7').keyup(function(){
+					var len = $(this).val().length
+					if(len<8||len>16){
+						$(this).next().text("8~16글자 까지 입력가능합니다.").css("color","red")
+					}else{
+						$(this).next().text('글자수:'+len).css("color","")
+					}
+				})
+	//[1단계:활용] 8. eq()를 활용하여 화살표로 커서를 움직일 때 마다, 3X3테이블의 특정한 td의 배경색상이 위치가 이동이 되게 하세요
+				$('#tb08 td').text(function(idx){
+					$(this).text(idx);
+				})
+				$('#tb08 td').on({
+						mouseenter:function(){
+							$(this).css("background","red")
+						},
+						mouseleave:function(){
+							$(this).css("background","")
+						}
+					})
+					
+					
+	//[1단계:개념] 9. 의존성 자동 주입이란 무엇이고 이것과 관련한 옵션은 어떤 것들이 있는가?
+				/*
+				서로 연관되어있는 객체들에 대해서
+				 컨테이너에서 객체가 현재 메모리에 모두 로딩이 되어있고,autowiring을 사용할경우
+				 로딩되어있는 것들중 자동으로 찾아서 객체로 만들어 할당해준다.
+				
+				*/
+	//[1단계:확인] 10. Pencil과 Eraser를 1:1관계로 설정하고 의존성 자동 주입으로 처리해보세요.(byType)
+					
+	//[1단계:확인] 11. BusDriver와 Bus를 선언하고 버스기사가 여러 대의 버스가운데 선택된 의존성 자동 주입을 처리해보세요(byName)
+ 				
+	//[1단계:개념] 12. 특정 패키지 자동 클래스 선언 형식을 기술하세요
+					/*
+					1) <context:component-scan base-package="적용할 최상위패키지명">
+					- 일단, @Component로 선언된 모든 클래스는 자동으로 메모리에 로딩된다.
+					
+					2) 특정패키지게 있는 객체들을 @Component선언 없이 메모리에 로딩하기위해 아래의 
+					옵션을 추가해야한다.
+					<context:component-scan base-package="적용할 최상위패키지명">
+						<context:include-filter rtpe="regex" expression=".*"/>
+						정규식 표현식에 해당하는 클래스를 메모리에 로딩하는 것을 .*란 하위에 있는 모든클래스를 지칭한다.
+					*/
+	//[1단계:확인] 13. z06_vo 패키지에 Person, Product, Music 클래스를 복사하고  컨테이너에서 해당 객체들을 호출하게 처리하세요
+				/*
+				1. <context:component-scan base-package="패키지"/>
+					- 해당구문만 사용할경우는, 해당 패키지아래에 해당 컨테이너로 호출할 클래스들에게
+						@Component를 적용시켜야한다.
+				2. <context:component-scan base-package="패키지">
+						<context:inclide-filter type="regex" expression=".*">
+					</context:component-scan>
+					해당 패키지의 아래의 전체 클래스가 전부 호출된다.
+				*/
+	});
+	
+ 
+
+</script>
+</head>
+<body>
+	  <h2>2번문제</h2>
+	  <table id="tb02" border>
+	  	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	  </table>
+<hr>
+	  <h2>4번문제</h2>
+	  <p>예시</p><h2 class="exp4">클릭</h2>
+	  <p>예시</p><h2 class="exp4">클릭</h2>
+	  <p>예시</p><h2 class="exp4">클릭</h2>
+<hr>
+	  <h2>7번문제</h2>
+	  <textarea id="exp7" maxlength="16"></textarea>
+	  <div></div>
+	  <div id="exp7_2"></div>
+<hr>
+	  <h2>8번문제</h2>
+	  <table id="tb08" border>
+	  	<tr><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td></tr>
+	  </table>
+	  
+</body>
+<script>
+</script>
+</html>

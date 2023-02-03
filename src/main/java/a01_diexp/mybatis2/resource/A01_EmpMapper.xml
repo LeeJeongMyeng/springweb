@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<!--	// springweb.a05_mvc.a03_dao.A01_EmpDao
+		// public List<Emp> getEmpList(Emp sch); 
+		인터페이스를 상속받은 실제 Dao객체를 위 규칙에 생성하는 xml파일..
+		
+		a01_diexp.mybatis.dao.A01_EmpDao.getEmpList
+		-->
+<mapper namespace="a01_diexp.mybatis2.dao.A01_Dao">
+	
+	
+	<select id="exp1" resultType="int">
+		select max(mgr) from emp100
+		</select>
+	<select id="exp2" resultType="String">
+		select to_char(max(HIREDATE), 'YYYY-MM-DD') from emp100 where deptno=30
+		</select>
+	<select id="exp3" resultType="double">
+		select min(sal) from emp100 where job= 'SALESMAN'
+		</select>
+	<select id="exp4" resultType="int">
+		SELECT COUNT(*) FROM EMP100 WHERE sal BETWEEN 2000 AND 4000
+		</select>
+	<select id="exp5" resultType="int">
+		SELECT COUNT(*) FROM EMP100 WHERE to_char(HIREDATE, 'q')=1
+		</select>
+
+		
+	
+	<select id="emp6"  resultType="emp" parameterType="emp">
+		  select * from emp100 where sal=(SELECT MAX(SAL) FROM EMP100 WHERE JOB ='MANAGER')
+	</select>
+	<select id="emp7"  resultType="dept" parameterType="dept">
+			  select * from dept where deptno=10
+	</select>
+	<select id="emp8"  resultType="emp" parameterType="emp">
+			   select * from emp100 where ename='TURNER'
+	</select>
+	<select id="emp9"  resultType="emp" parameterType="emp">
+			   select * from emp100 where HIREDATE= (SELECT MIN(HIREDATE) FROM EMP100)
+	</select>
+	<select id="emp10"  resultType="emp" parameterType="emp">
+			   SELECT * FROM EMP100 WHERE SAL=(SELECT MAX(SAL) FROM EMP100 WHERE to_char(HIREDATE, 'q')=2)
+	</select>
+	<select id="getEmpDeptList" resultType="empdept">
+    	 SELECT e.*, dname, loc 
+         FROM emp e, dept d
+         WHERE e.deptno=d.deptno
+    	</select>
+    
+    <select id="getEmpSalgradeList" resultType="empsalgrade">
+    	SELECT e.*,s.GRADE  FROM EMP e,SALGRADE s
+		WHERE SAL BETWEEN 1000 AND 3000
+    </select>
+    
+    
+</mapper>		
+		

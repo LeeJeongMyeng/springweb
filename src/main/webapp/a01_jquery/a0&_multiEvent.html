@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("h2").text("안녕하세요")
+		
+		/*
+			$("객체").on("이벤트",function(){처리할 내용});
+			$("객체").on({
+				이벤트1:function(){},
+				이벤트2:function(){},
+				이벤트3:function(){}
+			})
+			호출한 객체에 대해 여러개의 이벤트를 처리할때 사용한다.
+		*/
+		
+		/*
+		#다중의 속성 지정하기 json형식 처리
+		1. 기본 속성 다중으로 처리
+			$("#tab01").attr("속성","속성값")
+			$("#tab01").attr({"속성":"속성값","속성2":"속성값2","속성3":"속성값3"})
+		2. css속성 다중처리
+			$("#tab01").css({"속성":"속성값","속성2":"속성값2","속성3":"속성값3"})
+	*/
+	
+		$("h2").css({
+			color:"blue",
+			background:"yellow",
+			border:"1px solid green"
+			}) 
+		
+		$("h2").on({
+			click:function(){
+				$("h3").css({
+					"background":"orange",
+					"fontSize":"40px",
+					"textAlign":"center"
+				})
+			},
+			mouseenter:function(){$(this).css("color","yellow")},
+			mouseleave:function(){$(this).css("background","navy")}
+			
+			
+		
+		})
+		
+//ex) h3선언, h2클릭시 h3의 배경색,,글자크기,정렬중앙처리
+		
+		
+		
+		
+	});
+</script>
+</head>
+<body>
+
+	  <h2>zzzz</h2>
+	  <h3>safsdf</h3>
+
+</body>
+<script>
+</script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 테이블에 칸마다 번호 매기기
+		$('#ex08 td').text(function(idx){
+			return idx
+		})
+		// 시작하자마자 첫번째 놈한테 background적용
+		$('#ex08 td').first().css("background","yellow");
+		
+		var tdcnt = $('#ex08 td').length // 총 td갯수
+		var trcnt = $('#ex08 tr').length // 총 tr갯수
+		var Linetdcnt = tdcnt/trcnt // 한 줄당 td갯수
+		var idx = 0;// 현재 index값
+		
+		$(document).keydown(function(){
+			$('#ex08 td').css("background","")
+			//왼쪽
+			if(event.keyCode==37){ 
+				if(idx==0){idx=tdcnt-1} // index 0번이면 trcnt-1(마지막칸)으로 이동
+				else{idx--} // 0이아니면 index--
+			//오른쪽
+			}else if(event.keyCode==39){ 
+				if(idx==tdcnt-1){idx=0;} //마지막칸에서 오른쪽누르면 index 0번 으로
+				else{idx++} //아니면 index++
+				
+			// 위쪽
+			}else if(event.keyCode==38){
+				if(idx>Linetdcnt-1){//Linetdcnt-1은 첫번째 줄의 index를 의미
+					idx-=Linetdcnt // 첫번쨰 줄의 index보다 크면 위로 갈 번호가 있으니 이동
+				}else{
+					idx=(Linetdcnt*(trcnt-1))+idx//첫번쨰줄 index에서 위로 이동할시, 같은 열의 마지막 행으로 이동
+				}
+			//아래쪽
+			} else if(event.keyCode==40){ 
+				if(idx/Linetdcnt<trcnt-1){// idx/Linetdcnt는 몇번째 줄인지의미 //trcnt-1은 마지막줄을 의미
+					idx+=Linetdcnt; //마지막줄보다 작다는건 아래로 갈 칸이 있으므로 라인하나의 칸갯수만큼+
+				}else{
+					idx= idx%(Linetdcnt*(trcnt-1))//마지막줄이면 해당열의 첫번째 행으로 이동
+				}
+			}
+			
+		$('#ex08 td').eq(idx).css("background","yellow");
+		console.log(event.keyCode+":"+idx)
+		})
+		
+	
+	});
+</script>
+</head>
+<body>
+
+	  <table id="ex08" width="50%" height="500px" border>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  </table>
+	  
+
+</body>
+<script>
+</script>
+</html>

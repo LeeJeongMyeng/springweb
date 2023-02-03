@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 하나의 선택자로 동일한 내용을 적용할 수 있다.
+		 $("h2").text("클릭하면 아래문구 사라짐")
+		$("h3").text("반갑습니다.")
+		$("h2").click(function(){ 
+		// 다중의 내용중 클릭한 DOM 선택됨 $(this)
+			$(this).text("클릭되었네요")
+			$("h3").hide();
+		})
+		
+		
+	});
+	
+	
+</script>
+</head>
+<body>
+
+	  
+	  <hr>
+	  <h2 class="exp01">red</h2>
+	  <h2 class="exp01">orange</h2>
+	  <h2 class="exp01">yellow</h2>
+	  <h2 class="exp01">green</h2>
+	  <h2 class="exp01">blue</h2>
+	  <h2 class="exp01">indigo</h2>
+	  <h2 class="exp01">purple</h2>
+	  
+
+</body>
+<script>
+$(".exp01").click(function(){
+	var colorval = $(this).text(); //해당 텍스트의 값가져오기
+	$(this).css("color",colorval); //색상적용	
+})
+</script>
+</html>

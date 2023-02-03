@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:task="http://www.springframework.org/schema/task" 
+   xmlns:aop="http://www.springframework.org/schema/aop" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:c="http://www.springframework.org/schema/c"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:util="http://www.springframework.org/schema/util"
+   xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xmlns:sec="http://www.springframework.org/schema/security"
+   xmlns:tx="http://www.springframework.org/schema/tx" 
+    
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd       
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+         http://www.springframework.org/schema/websocket
+      http://www.springframework.org/schema/websocket/spring-websocket.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd   
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd   
+      " >
+   <!-- 
+      자동을 특정 패키지에 컨테이너에 할당할 클래스 설정ㄴ
+         1. springweb 하위 패키지에
+         2. annotation으로 Controller, Service, Repository로 선언된
+            클래스를 호출하여 객체로 생성되게 처리.
+    -->
+      <context:component-scan base-package="springweb">
+         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+      </context:component-scan>
+      <!-- 
+         # DB연결처리
+         1. dbcp(database connection pool)로 연결
+             oracle.jdbc.driver.OracleDriver
+             JDBC는 JAVA DataBase Connectivity의 약자로 자바에서 데이터베이스에 연결하기위한 인터페이스입니다.
+        	 DBCP는 DataBase Connection Pool 의 약자로 DB와 커넥션을 맺고 있는 객체를 관리하는 역할을 합니다.
+
+			JDBC만을 사용할 경우라면 DB접속 시 아래와 같은 순서가 반복되게 됩니다.
+			1. DB 접속을 위한 JDBC 드라이버 로드
+			2. getConnection Method로 부터 DB 커넥션 객체를 얻음
+			3. 쿼리 수행을 위한 PreparedStatement 객체 생성
+			4. excuteQuery를 실행해서 결과를 받아옴.
+			
+			여기서 비효율적인 부분은 1번과 2번 입니다.
+			DB 연결 시 마다 Driver를 로드하고 커넥션 객체를 얻는 작업을 반복하죠.
+			이 부분을 효율적으로 처리하도록 바꾸는 것이 DBCP의 역할 입니다.
+			
+			DBCP를 사용하게 되면,
+			WAS 실행 시 미리 일정량의 DB Connection 객체를 생성하고 Pool 이라는 공간에 저장해 둡니다.
+			그리고 DB 연결 요청이 있으면, 이 Pool 이라는 공간에서 Connection 객체를 가져다 쓰고 반환 하게 됩니다.
+       -->
+       <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+             <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+             <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+             <property name="username" value="scott"/>
+             <property name="password" value="tiger"/>
+       </bean>
+       <!-- 
+             # Mybatis 연동
+             1. 위 선언한 dbcp와 연결
+             2. mybatis 공통 xml과 연동처리
+                src\main\java\resource\mybatis.Spring.xml
+                
+            * Mybatis와 Spring 연동시 SqlSessionFactoryBean을 사용합니다.
+        -->
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+           <property name="dataSource" ref="dataSource"/>
+           <property name="configLocation" value="classpath:resource/mybatis.Spring.xml"/>
+        </bean>
+        
+        
+       
+        <!-- 
+           # 마이바티즈에 의해 자동 생성 dao 인터페이스 선언
+           # value로 지정한 패키지 아래의 모든 인터페이스가 Mapper인터페이스로 간주되어
+           		mapper인터페이스의 객체가 DI컨테이너에 등록된다.
+           		
+           <@Mapper 어노테이션에 관하여>
+           - base-package / basePackages 프로퍼티만 사용할 때는 @Mapper 어노테이션을 사용하지 않아도 자동으로 패키지 하위의 인터페이스는 매퍼로 등록된다.
+		   - 특정 인터페이스만 매퍼로 사용하기 위해서는 annotation / annotationClass 프로퍼티를 사용한다.
+		   - @Mapper 어노테이션 말고 직접 생성한 어노테이션을 사용해도 된다.
+        -->
+        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+           <property name="basePackage" value="springweb.a05_mvc.a03_dao,springweb.homework.a0131"/>
+        </bean>
+        
+        <!-- 
+	        #컨트롤러단에서 마지막 리턴되는 값이 bean id값과 동일하면 해당 객체로 view를 처리한다.(1순위)
+			그 외에는 jsp/html로 경로를 찾아가서 화면을 로딩한다.(2순위)
+        
+        	1. viewResolver 1순위 선언 : bean이 선언되어 있으면 해당 뷰를 찾게 처리
+         -->
+         <bean id="btnViewResolver"
+         		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+         	<property name="order" value="0"/>
+         </bean>
+         <!-- 
+         	2. 위에 선언된 viewer이외는 모두 html/jsp 뷰..
+          -->
+          <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+          	<property name="order" value="1"/>
+          </bean>
+          <!-- 위에서 1순위(value=0) 채택하는 json viewer -->
+         
+          
+          <bean id="pageJsonReport" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+          	<property name="contentType" value="text/html;charset=utf-8"/>
+          </bean>
+        </beans>

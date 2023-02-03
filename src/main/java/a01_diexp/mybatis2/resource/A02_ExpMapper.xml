@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<!--	// springweb.a05_mvc.a03_dao.A01_EmpDao
+		// public List<Emp> getEmpList(Emp sch); 
+		인터페이스를 상속받은 실제 Dao객체를 위 규칙에 생성하는 xml파일..
+		
+		a01_diexp.mybatis.dao.A01_EmpDao.getEmpList
+		-->
+<mapper namespace="a01_diexp.mybatis2.dao.A02_ExpDao">
+	
+	<!-- 
+	type은 mybatis.Spring.xml의 alias랑 맞추면댐
+	
+	SELECT empno NO, ename name, sal+NVL(comm,0) tot 
+		FROM emp100;
+		 no,name,tot :column
+		 empno,ename,sal : Emp안의 property에 할당
+	 -->
+	<resultMap type="emp" id="empResult">
+		<result column="no" property="empno"/>
+		<result column="name" property="ename"/>
+		<result column="tot" property="sal"/>
+	</resultMap>
+    
+    <!-- public List<Emp> getEmpData(); -->
+    <select id="getEmpData" resultMap="empResult">
+    SELECT empno NO, ename name, sal+NVL(comm,0) tot 
+	FROM emp100
+    </select>
+    
+    <select id="getSalgrade" resultType="salgrade">
+    	SELECT * FROM SALGRADE 
+    </select>
+    
+   <!--여기는 숙제! ename name, mgr manager, sal salaray -->
+    <resultMap type="emp" id="emphomework">
+		<result column="name" property="ename"/>
+		<result column="manager" property="mgr"/>
+		<result column="salaray" property="sal"/>
+	</resultMap>
+	
+	<select id="getEmphomework" resultMap="emphomework">
+    SELECT ename name, mgr manager, sal salaray 
+	FROM emp100
+	</select>
+	
+	
+	<resultMap type="dept" id="depthomework">
+		<result column="no" property="deptno"/>
+		<result column="departname" property="dname"/>
+		<result column="location" property="loc"/>
+	</resultMap>
+	<select id="getDepthomework" resultMap="depthomework">
+	select deptno no, dname departname, loc location from dept
+	</select>
+</mapper>		
+		

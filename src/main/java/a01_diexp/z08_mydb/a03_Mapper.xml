@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<!--	// springweb.a05_mvc.a03_dao.A01_EmpDao
+		// public List<Emp> getEmpList(Emp sch); 
+		인터페이스를 상속받은 실제 Dao객체를 위 규칙에 생성하는 xml파일..
+		
+		a01_diexp.mybatis.dao.A01_EmpDao.getEmpList
+		-->
+<mapper namespace="a01_diexp.z08_mydb.A02_ExpDao">
+	<select id="getSalgrade" resultType="salgrade">
+		select * from salgrade
+	</select>
+<!-- ==================================================================== -->	
+	<resultMap type="emp" id="empResult">
+		<result column="name" property="ename"/>
+		<result column="manager" property="mgr"/>
+		<result column="salary" property="sal"/>
+	</resultMap>
+	
+	<select id="getEmpExp01" resultMap="empResult">
+		select ename name,mgr manager,sal salary from emp100
+	</select>
+<!-- ==================================================================== -->	
+	<resultMap type="empDept" id="comResult">
+				<!-- javaType은 mybatis.spring.xml의 alias(vo)이다. -->
+		<association property="emp" javaType="emp">
+			<result column="empno" property="empno"/>
+			<result column="ename" property="ename"/>
+			<result column="job" property="job"/>
+			<result column="mgr" property="mgr"/>
+			<result column="hiredate" property="hiredate"/>
+			<result column="sal" property="sal"/>
+			<result column="comm" property="comm"/>
+			<result column="deptno" property="deptno"/>
+		</association>
+		<association property="dept" javaType="dept">
+			<result column="deptno" property="deptno"/>
+			<result column="dname" property="dname"/>
+			<result column="loc" property="loc"/>
+		</association>
+	</resultMap>
+	
+	<select id="getEmpDeptList" resultMap="comResult">
+		select e.*,dname,loc from emp e,dept d
+		where e.deptno=d.deptno
+	</select>
+	
+	<resultMap type="deptSalgrade" id="DSResult">
+		<association property="dept" javaType="dept">
+			<result column="deptno" property="deptno"/>
+			<result column="dname" property="dname"/>
+			<result column="loc" property="loc"/>
+		</association>
+		<association property="salgrade" javaType="salgrade">
+			<result column="grade" property="grade"/>
+			<result column="losal" property="losal"/>
+			<result column="hisal" property="hisal"/>
+		</association>
+	</resultMap>
+	
+	<select id="getDeptSalgrade" resultMap="DSResult">
+		select d.*,s.* from dept d,salgrade s
+	</select>
+	
+	<select id="getEmp" parameterType="int" resultType="emp">
+		select * from emp where empno=#{empno}
+	</select>
+	
+	<insert id="insertEmp" parameterType="emp" >
+		insert into emp100 values(7879,#{ename},#{job},#{mgr},sysdate,#{sal},#{comm},#{deptno})
+	</insert>
+	<insert id="insertEmp2" parameterType="emp" >
+		insert into emp values(7879,#{ename},#{job},#{mgr},sysdate,#{sal},#{comm},#{deptno})
+	</insert>
+	
+	<delete id="deleteEmp" parameterType="int">
+		delete from emp100 where empno=#{empno}
+	</delete>
+</mapper>	
+
+
+		

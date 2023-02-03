@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center; border:1px solid;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		
+		
+	});
+	
+	/*
+		$(객체).hover(function(){함수1},function(){함수2});
+		하나의 객체에 mouseenter,mouseleave 내용을 한꺼번에 처리할떄 사용된다.
+	*/
+	
+</script>
+</head>
+<body>
+
+	  <table id="table" style="width:50%; height:500px;">
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  	<tr><td></td><td></td><td></td><td></td></tr>
+	  </table>
+	  
+
+</body>
+<script>
+$('#table td').mousedown(function(){
+	$(this).css("background","black");
+})
+$('#table td').mouseup(function(){
+	$(this).css("background","");
+})
+</script>
+</html>

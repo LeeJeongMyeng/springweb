@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/a00_com/bootstrap.min.css" >
+<style>
+	td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/a00_com/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("h2, h3").text("안녕하세요")
+		
+		$("h2").click(function(){ //h2클릭시
+			$(this).text("클릭입니다.");
+		});
+		$("h3").click(function(){ //h3클릭시
+			$(this).text("클립2입니다."); //해당h3 내용변경
+			$("h2:nth-child(2)").click(); //h2클림됨 
+		})
+		
+	
+		
+		
+		
+	});
+</script>
+</head>
+<body>
+
+	  <h2></h2>
+	  <h2></h2>
+	  <h2></h2>
+	  <h3></h3>
+	  
+	  <div id="dd"> 클릭</div>
+	  <p id="ff">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz<br>
+	  zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>
+		<div>zzzz</div>
+</body>
+<script>
+
+$('div#dd').click(function(){
+	$('#ff').toggle('fast');
+})
+
+
+</script>
+</html>

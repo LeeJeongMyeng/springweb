@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:task="http://www.springframework.org/schema/task" 
+   xmlns:aop="http://www.springframework.org/schema/aop" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:c="http://www.springframework.org/schema/c"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:util="http://www.springframework.org/schema/util"
+   xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xmlns:sec="http://www.springframework.org/schema/security"
+   xmlns:tx="http://www.springframework.org/schema/tx" 
+    
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd       
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+         http://www.springframework.org/schema/websocket
+      http://www.springframework.org/schema/websocket/spring-websocket.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd   
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd   
+      " >
+      
+      <!-- 2번문제  -->
+     <bean id="pk01" class="homework_vo.Poket">
+     	<property name="ball">
+     		<set>
+     			<value>빨간구슬</value>
+     			<value>파란구슬</value>
+     			<value>주황구슬</value>
+     			<value>노랑구슬</value>
+     			<value>초록구슬</value>
+     			<value>남색구슬</value>	
+     			<value>보라구슬</value>	
+     		</set>
+     	</property>
+     </bean>
+     
+     <!-- 3번문제 -->
+   <bean id="tire01" class="homework_vo.Tire" c:_0="한국타이어" c:_1="10000"/>
+   <bean id="tire02" class="homework_vo.Tire" c:company="넥센타이어" c:price="20000"/>
+   <bean id="tire03" class="homework_vo.Tire" p:company="동네타이어" p:price="30000"/>
+     
+     
+     <bean id="carinfo01" class="a01_diexp.z01_vo.Car"
+     	p:name="람보르기니" p:maxspeed="150">
+     	<property name="tire">
+     		<list>
+     			<ref bean="tire01"/>
+     			<ref bean="tire02"/>
+     			<ref bean="tire03"/>
+     		</list>
+     	</property>
+     </bean> 
+     
+     <!-- 4번문제 -->
+     <bean id="bt01" class="homework_vo.BaseBallTeam"
+     	c:_0="삼성라이온즈" c:_1="2" c:_2="0" c:_3="1">
+     	<property name="hitplayers">
+     		<props>
+     			<prop key="1번타자">박길동</prop>
+     			<prop key="2번타자">홍길동</prop>
+     			<prop key="3번타자">이길동</prop>
+     		</props>
+     	</property>
+     	<property name="defenceplayers">
+     		<map>
+     			<entry key="1루"><value>허길동</value></entry>
+     			<entry key="2루" value="모길동"></entry>
+     			<entry key="3루" value="광길동"></entry>
+     		</map>
+     	</property>
+     </bean>
+     
+     
+</beans> <!-- 컨테이너 -->

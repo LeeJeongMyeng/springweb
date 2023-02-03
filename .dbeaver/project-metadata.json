@@ -1,0 +1,1 @@
+{"resources":{"doc/sql/mvc.sql":{"default-datasource":"oracle_thin-185a4deba68-7e387134f146366b","default-schema":"SCOTT"},"src/main/webapp/SQL/Code.sql":{"default-schema":"SCOTT","default-datasource":"oracle_thin-185a4deba68-7e387134f146366b"}}}

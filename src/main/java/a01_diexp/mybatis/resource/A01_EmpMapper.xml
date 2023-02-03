@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<!--	// springweb.a05_mvc.a03_dao.A01_EmpDao
+		// public List<Emp> getEmpList(Emp sch); 
+		인터페이스를 상속받은 실제 Dao객체를 위 규칙에 생성하는 xml파일..
+		
+		a01_diexp.mybatis.dao.A01_EmpDao.getEmpList
+		-->
+<mapper namespace="a01_diexp.mybatis.dao.A01_EmpDao">
+	<select id="getEmpList"  resultType="emp" parameterType="emp">
+		select * 
+		from emp100
+		where ename like '%'||#{ename}||'%'
+		and job like '%'||#{job}||'%'	
+	</select>
+	
+	<select id="empCount" resultType="int">
+		select count(*)
+			from emp100
+		</select>
+		
+	<select id="EmpMaxSal" resultType="double">
+		SELECT MAX(SAL) MSAL
+		FROM EMP100
+	</select>
+	<select id="empGetEname" resultType="String">
+		SELECT ename
+		from emp100
+		where empno=7369
+	</select>
+
+	<select id="empMaxSal20Deptno" resultType="int">
+	select max(sal) msal from emp100 where deptno=20
+	</select>
+	<select id="empMaxMgr" resultType="int">
+	select max(mgr) from emp100
+	</select>
+	<select id="empGetJob" resultType="String">
+	select job from emp100 where ename like '%'||'WARD'||'%'
+	</select>
+	
+	<select id="getEmpByEmpno" resultType="emp">
+			 SELECT * FROM EMP100 WHERE EMPNO=7369
+	</select>
+	
+	<select id="getEmpByEname" resultType="emp">
+			 SELECT * FROM EMP100 WHERE ENAME='ALLEN'
+	</select>
+</mapper>	
+
+
+		

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+   
+   <!-- 
+   //springweb.a05_mvc.a03_dao. A01_EmpDao
+	//public List<Emp> getEmpList(Emp sch);
+	
+	인터페이스를 상속받은 실제 Dao객체를 위 규칙에 생성하는 xml파일
+    -->
+    
+    <mapper namespace="springweb.homework.a0127.A0127_Dao">
+    	<select id="getMemberList" resultType="member111" parameterType="member111">
+    	SELECT * FROM MEMBER111 m 
+		WHERE mid LIKE  '%'||#{mid}||'%'
+		AND NAME LIKE  '%'||#{name}||'%'
+		AND AUTH LIKE  '%'||#{auth}||'%'
+    	</select>
+    	
+    	<select id="getEmpList" resultType="emp" parameterType="emp">
+    	select * from emp100
+    	where ename LIKE '%'||#{ename}||'%'
+    	<if test="empno != 0">
+    	and empno LIKE '%'||#{empno}||'%'
+    	</if>
+    	</select>
+    	
+    	<update id="updateMem" parameterType="member111">
+    		update member111
+    		set pass=#{pass}
+    		where mid=#{mid}
+    	</update>
+    	
+    	<delete id="deleteMem">
+    		delete member111
+    		where mid=#{mid}
+    	</delete>
+    	
+    	<select id="getAuthInfo" resultType="string">
+    		SELECT DISTINCT auth FROM member111
+    	</select>
+    </mapper>
+    
+    
+   
+    
+    
